@@ -1,0 +1,15 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AddressBookBundle:User:new{% endblock %}
+
+{% block body %}
+<h1>Welcome to the User:new page</h1>
+
+{% for entity in MyArray %}
+    {{ entity.name }}
+    {{ entity.surname }}
+    {{ entity.description }}
+    <br>
+{% endfor %}
+
+{% endblock %}
