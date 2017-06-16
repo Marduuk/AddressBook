@@ -110,7 +110,7 @@ class UserController extends Controller
         return $this->render('AddressBookBundle:User:modify.html.twig',
             array('formModify' => $formModify->createView(),'formAddress' => $formAddress->CreateView()));
     }
-    
+
 
     /**
      * @Route("/{id}/delete")

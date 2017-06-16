@@ -9,6 +9,8 @@
     {{ entity.name }}
     {{ entity.surname }}
     {{ entity.description }}
+    <a href="{{ path("addressbook_user_delete",{'id':entity.id}) }}">usun tego usera</a>
+    <a href="{{ path("addressbook_user_modify",{'id':entity.id}) }}">modyfikuj usera</a>
     <br>
 {% endfor %}
 
