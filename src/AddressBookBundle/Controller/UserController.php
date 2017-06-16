@@ -110,11 +110,7 @@ class UserController extends Controller
         return $this->render('AddressBookBundle:User:modify.html.twig',
             array('formModify' => $formModify->createView(),'formAddress' => $formAddress->CreateView()));
     }
-
-
-
-
-
+    
 
     /**
      * @Route("/{id}/delete")
@@ -127,7 +123,7 @@ class UserController extends Controller
 
         $em->remove($entity);
         $em->flush();
-        return "to the shadows";
+        return new Response("Usunieto");
     }
     /**
      * @Route("/{id}")

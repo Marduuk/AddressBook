@@ -3,6 +3,8 @@
 namespace AddressBookBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use PHPUnit\Framework\TestCase;
+
 
 class UserControllerTest extends WebTestCase
 {
