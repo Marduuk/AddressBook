@@ -1,7 +1,6 @@
 <?php
 
 namespace AddressBookBundle\Entity;
-use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -38,22 +37,21 @@ class Email
 
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="$email")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="email")
      */
     private $user;
-
-
-    public function __construct() {
-        $this->user = new ArrayCollection();
-
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
-
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -64,6 +62,7 @@ class Email
      * Set email
      *
      * @param string $email
+     *
      * @return Email
      */
     public function setEmail($email)
@@ -76,7 +75,7 @@ class Email
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -87,6 +86,7 @@ class Email
      * Set emailtype
      *
      * @param string $emailtype
+     *
      * @return Email
      */
     public function setEmailtype($emailtype)
@@ -99,7 +99,7 @@ class Email
     /**
      * Get emailtype
      *
-     * @return string 
+     * @return string
      */
     public function getEmailtype()
     {
@@ -110,6 +110,7 @@ class Email
      * Add user
      *
      * @param \AddressBookBundle\Entity\User $user
+     *
      * @return Email
      */
     public function addUser(\AddressBookBundle\Entity\User $user)
@@ -132,7 +133,7 @@ class Email
     /**
      * Get user
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUser()
     {

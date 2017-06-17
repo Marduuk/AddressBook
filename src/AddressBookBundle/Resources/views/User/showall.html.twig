@@ -3,15 +3,34 @@
 {% block title %}AddressBookBundle:User:new{% endblock %}
 
 {% block body %}
-<h1>Welcome to the User:new page</h1>
 
-{% for entity in MyArray %}
-    {{ entity.name }}
-    {{ entity.surname }}
-    {{ entity.description }}
-    <a href="{{ path("addressbook_user_delete",{'id':entity.id}) }}">usun tego usera</a>
-    <a href="{{ path("addressbook_user_modify",{'id':entity.id}) }}">modyfikuj usera</a>
-    <br>
-{% endfor %}
+    <a href="{{ path('addressbook_user_new') }}" class="btn btn-success">Add</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Description</th>
+            <th>Options</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+        <tr>
+            <th scope="row">{{ user.id }}</th>
+            <td>{{ user.name }}</td>
+            <td>{{ user.surname }}</td>
+            <td>{{ user.description }}</td>
+            <td>
+                <a href="{{ path("addressbook_user_info", { 'id': user.id }) }}" class="btn btn-info">Info</a>
+                <a href="{{ path("addressbook_user_modify", { 'id': user.id }) }}" class="btn btn-default">Edit</a>
+                <a href="{{ path("addressbook_user_delete", { 'id': user.id }) }}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}

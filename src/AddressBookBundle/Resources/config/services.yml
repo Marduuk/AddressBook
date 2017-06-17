@@ -1,4 +1,16 @@
 services:
-#    address_book.example:
-#        class: AddressBookBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    address_book.entity.repository_user:
+        class: AddressBookBundle\Repository\UserRepository
+        factory:
+                - "@doctrine.orm.entity_manager"
+                - getRepository
+        arguments:
+                - AddressBookBundle\Entity\User
+
+    address_book.entity.repository_address:
+        class: AddressBookBundle\Repository\AddressRepository
+        factory:
+                - "@doctrine.orm.entity_manager"
+                - getRepository
+        arguments:
+                - AddressBookBundle\Entity\Address

@@ -1,7 +1,7 @@
 <?php
 
 namespace AddressBookBundle\Entity;
-use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,32 +35,22 @@ class Phone
      */
     private $phonekind;
 
-
-
     /**
      * @ORM\OneToMany(targetEntity="User", mappedBy="phone")
      */
     private $user;
-
-
-
-    public function __construct() {
-        $this->user = new ArrayCollection();
-
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
-
-
-
-
-
-
-
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -71,6 +61,7 @@ class Phone
      * Set phonenumber
      *
      * @param integer $phonenumber
+     *
      * @return Phone
      */
     public function setPhonenumber($phonenumber)
@@ -83,7 +74,7 @@ class Phone
     /**
      * Get phonenumber
      *
-     * @return integer 
+     * @return integer
      */
     public function getPhonenumber()
     {
@@ -94,6 +85,7 @@ class Phone
      * Set phonekind
      *
      * @param string $phonekind
+     *
      * @return Phone
      */
     public function setPhonekind($phonekind)
@@ -106,7 +98,7 @@ class Phone
     /**
      * Get phonekind
      *
-     * @return string 
+     * @return string
      */
     public function getPhonekind()
     {
@@ -117,6 +109,7 @@ class Phone
      * Add user
      *
      * @param \AddressBookBundle\Entity\User $user
+     *
      * @return Phone
      */
     public function addUser(\AddressBookBundle\Entity\User $user)
@@ -139,7 +132,7 @@ class Phone
     /**
      * Get user
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUser()
     {

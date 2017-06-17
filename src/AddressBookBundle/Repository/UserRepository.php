@@ -2,6 +2,7 @@
 
 namespace AddressBookBundle\Repository;
 
+use AddressBookBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,5 +13,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
-
+    public function save(User $user)
+    {
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
+    }
 }
