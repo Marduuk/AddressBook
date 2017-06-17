@@ -1,7 +1,6 @@
 <?php
 
 namespace AddressBookBundle\Entity;
-use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -51,27 +50,24 @@ class Address
     private $flatnumber;
 
 
-/**
- * @ORM\OneToMany(targetEntity="User", mappedBy="address")
- */
+    /**
+     * @ORM\OneToMany(targetEntity="User", mappedBy="address")
+     */
     private $user;
 
 
-
-    public function __construct() {
-        $this->user = new ArrayCollection();
-
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
-
-
-
-
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -82,6 +78,7 @@ class Address
      * Set city
      *
      * @param string $city
+     *
      * @return Address
      */
     public function setCity($city)
@@ -94,7 +91,7 @@ class Address
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -105,6 +102,7 @@ class Address
      * Set street
      *
      * @param string $street
+     *
      * @return Address
      */
     public function setStreet($street)
@@ -117,7 +115,7 @@ class Address
     /**
      * Get street
      *
-     * @return string 
+     * @return string
      */
     public function getStreet()
     {
@@ -128,6 +126,7 @@ class Address
      * Set housenumber
      *
      * @param integer $housenumber
+     *
      * @return Address
      */
     public function setHousenumber($housenumber)
@@ -140,7 +139,7 @@ class Address
     /**
      * Get housenumber
      *
-     * @return integer 
+     * @return integer
      */
     public function getHousenumber()
     {
@@ -151,6 +150,7 @@ class Address
      * Set flatnumber
      *
      * @param integer $flatnumber
+     *
      * @return Address
      */
     public function setFlatnumber($flatnumber)
@@ -163,7 +163,7 @@ class Address
     /**
      * Get flatnumber
      *
-     * @return integer 
+     * @return integer
      */
     public function getFlatnumber()
     {
@@ -174,6 +174,7 @@ class Address
      * Add user
      *
      * @param \AddressBookBundle\Entity\User $user
+     *
      * @return Address
      */
     public function addUser(\AddressBookBundle\Entity\User $user)
@@ -196,7 +197,7 @@ class Address
     /**
      * Get user
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUser()
     {

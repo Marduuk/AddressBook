@@ -1,7 +1,7 @@
 <?php
 
 namespace AddressBookBundle\Entity;
-use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,81 +35,8 @@ class Phone
      */
     private $phonekind;
 
-
-
     /**
      * @ORM\OneToMany(targetEntity="User", mappedBy="phone")
      */
     private $user;
-
-
-
-    public function __construct() {
-        $this->user = new ArrayCollection();
-
-    }
-
-
-
-
-
-
-
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set phonenumber
-     *
-     * @param integer $phonenumber
-     * @return Phone
-     */
-    public function setPhonenumber($phonenumber)
-    {
-        $this->phonenumber = $phonenumber;
-
-        return $this;
-    }
-
-    /**
-     * Get phonenumber
-     *
-     * @return integer 
-     */
-    public function getPhonenumber()
-    {
-        return $this->phonenumber;
-    }
-
-    /**
-     * Set phonekind
-     *
-     * @param string $phonekind
-     * @return Phone
-     */
-    public function setPhonekind($phonekind)
-    {
-        $this->phonekind = $phonekind;
-
-        return $this;
-    }
-
-    /**
-     * Get phonekind
-     *
-     * @return string 
-     */
-    public function getPhonekind()
-    {
-        return $this->phonekind;
-    }
 }

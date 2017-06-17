@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User
 {
-
     /**
      * @var int
      *
@@ -43,36 +42,30 @@ class User
      */
     private $description;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Address", inversedBy="user")
      * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
      */
     private $address;
+
     /**
      * @ORM\ManyToOne(targetEntity="Phone", inversedBy="user")
      * @ORM\JoinColumn(name="phone_id", referencedColumnName="id")
      */
     private $phone;
+
     /**
      * @ORM\ManyToOne(targetEntity="Email", inversedBy="user")
      * @ORM\JoinColumn(name="email_id", referencedColumnName="id")
      */
     private $email;
 
-    public function getAddress(){
-        return $this->address;
-    }
-
-
-
-
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -83,6 +76,7 @@ class User
      * Set name
      *
      * @param string $name
+     *
      * @return User
      */
     public function setName($name)
@@ -95,7 +89,7 @@ class User
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -106,6 +100,7 @@ class User
      * Set surname
      *
      * @param string $surname
+     *
      * @return User
      */
     public function setSurname($surname)
@@ -118,7 +113,7 @@ class User
     /**
      * Get surname
      *
-     * @return string 
+     * @return string
      */
     public function getSurname()
     {
@@ -129,6 +124,7 @@ class User
      * Set description
      *
      * @param string $description
+     *
      * @return User
      */
     public function setDescription($description)
@@ -141,18 +137,18 @@ class User
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
         return $this->description;
     }
 
-
     /**
      * Set address
      *
      * @param \AddressBookBundle\Entity\Address $address
+     *
      * @return User
      */
     public function setAddress(\AddressBookBundle\Entity\Address $address = null)
@@ -163,9 +159,20 @@ class User
     }
 
     /**
+     * Get address
+     *
+     * @return \AddressBookBundle\Entity\Address
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
      * Set phone
      *
      * @param \AddressBookBundle\Entity\Phone $phone
+     *
      * @return User
      */
     public function setPhone(\AddressBookBundle\Entity\Phone $phone = null)
@@ -178,7 +185,7 @@ class User
     /**
      * Get phone
      *
-     * @return \AddressBookBundle\Entity\Phone 
+     * @return \AddressBookBundle\Entity\Phone
      */
     public function getPhone()
     {
@@ -189,6 +196,7 @@ class User
      * Set email
      *
      * @param \AddressBookBundle\Entity\Email $email
+     *
      * @return User
      */
     public function setEmail(\AddressBookBundle\Entity\Email $email = null)
@@ -201,7 +209,7 @@ class User
     /**
      * Get email
      *
-     * @return \AddressBookBundle\Entity\Email 
+     * @return \AddressBookBundle\Entity\Email
      */
     public function getEmail()
     {

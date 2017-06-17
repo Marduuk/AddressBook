@@ -2,159 +2,123 @@
 
 namespace AddressBookBundle\Controller;
 
-use AddressBookBundle\AddressBookBundle;
+use AddressBookBundle\Form\Type\UserForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 use AddressBookBundle\Entity\User;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use AddressBookBundle\Entity\Address;
-
-
-
 
 class UserController extends Controller
 {
-
-    public function fromPostToDb($form)
+    /**
+     * @Route("/", name="addressbook_user_showall")
+     */
+    public function showAllAction()
     {
-        $post = $form->getData();
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($post);
-        var_dump($em->flush());
-        $em->flush();
-        return true;
+        $em = $this->get('address_book.entity.repository_user');
+        $users = $em->findAll();
+
+        return $this->render('AddressBookBundle:User:showall.html.twig', [
+            'users' => $users
+        ]);
     }
 
     /**
-     * @Route("/new")
-     * @Template("AddressBookBundle:User:new.html.twig")
+     * @Route("/new", name="addressbook_user_new")
+     * @param Request $request
+     * @return Response
      */
-    public function newAction(Request $req){
+    public function newUserAction(Request $request)
+    {
 
+        $user = new User();
 
-        $user=new User();
-        $form=$this->createFormBuilder($user)
-            ->add("name","text")
-            ->add("surname","text")
-            ->add("description","text")
-            ->add("send","submit")
-            ->getForm();
-
-        $form->handleRequest($req);
+        $form = $this->createForm(UserForm::class, $user);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-           // fromPostToDb($form);
             $post = $form->getData();
-            var_dump($post);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($post);
-            $em->flush();
+            $em = $this->get('address_book.entity.repository_user');
+            $em->save($post);
 
+            $this->addFlash('success', 'User was added.');
 
-            $name=$post->getName();
-            $surname=$post->getSurname();
-            $desc=$post->getDescription();// mam wrazenie ze to glupio zrobilem mozna inaczej?
-
-
-            return $this->render('AddressBookBundle:User:new.html.twig',
-                array('success' => "success","name"=>"$name","surname"=>"$surname","desc"=>"$desc"));
+            return $this->redirectToRoute('addressbook_user_showall');
         }
 
-        return $this->render('AddressBookBundle:User:new.html.twig',
-            array('form' => $form->createView()));
+        return $this->render('AddressBookBundle:User:new.html.twig', [
+            'form' => $form->createView()
+        ]);
 
     }
 
     /**
-     * @Route("{id}/modify")
+     * @Route("/modify/{id}", name="addressbook_user_modify")
+     * @param Request $request
+     * @param User $user
+     * @return Response
      */
 
-    public function modifyAction(Request $req,$id){
+    public function modifyAction(Request $request, User $user)
+    {
 
-        $repository = $this->getDoctrine()->getRepository('AddressBookBundle:User');
-        $entity=$repository->findOneById($id);
+        $form = $this->createForm(UserForm::class, $user);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted()) {
+            $post = $form->getData();
 
-        $formModify=$this->createFormBuilder($entity)
-            ->add("name","text")
-            ->add("surname","text")
-            ->add("description","text")
-            ->add("send","submit")
-            ->getForm();
+            $em = $this->get('address_book.entity.repository_user');
+            $em->save($post);
 
-        $add=new Address();
-        $formAddress=$this->createFormBuilder($add)
-            //->setAction($this->redirectToRoute("addAddress",array('id'=>$id)))
-            ->setAction($this->generateUrl('addAddress', ['id' => $id]))
-            ->add("city","text")
-            ->add("street","text")
-            ->add("housenumber","text")
-            ->add("flatnumber","text")
-            ->add("send","submit")
-            ->getForm();
+            $this->addFlash('success', 'User data was changed.');
 
-
-        $formModify->handleRequest($req);
-        if ($formModify->isSubmitted()) {
-            echo "123";
-            $post = $formModify->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($post);
-            $em->flush();
+            return $this->redirectToRoute('addressbook_user_showall');
         }
-        return $this->render('AddressBookBundle:User:modify.html.twig',
-            array('formModify' => $formModify->createView(),'formAddress' => $formAddress->CreateView()));
+
+
+        return $this->render('AddressBookBundle:User:new.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 
     /**
-     * @Route("/{id}/delete")
+     * @Route("/delete/{id}", name="addressbook_user_delete")
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction($id){
-        $repository = $this->getDoctrine()->getRepository('AddressBookBundle:User');
+    public function deleteAction(User $user){
 
-        $entity=$repository->findOneById($id);
-        $em = $this->getDoctrine()->getEntityManager();
+        if ($user === null) {
+            return $this->redirectToRoute('addressbook_user_showall');
+        }
 
-        $em->remove($entity);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
         $em->flush();
-        return new Response("Usunieto");
+
+        $this->addFlash('danger', 'User was deleted.');
+
+        return $this->redirectToRoute('addressbook_user_showall');
     }
+
     /**
-     * @Route("/{id}")
+     * @Route("/info/{id}", name="addressbook_user_info")
+     * @param User $u
+     * @return Response
      */
+    public function showAction(User $u){
 
-    public function showAction($id){
-        $repository = $this->getDoctrine()->getRepository('AddressBookBundle:User');
-        $entity=$repository->findOneById($id);
+        $user = $this->get('address_book.entity.repository_user')->find($u);
 
-        $name=$entity->getName();
-        $surname=$entity->getSurname();
-        $desc=$entity->getDescription();
-
-        //id przekazac
-        return $this->render('AddressBookBundle:User:show.html.twig',
-            array('success' => "success","name"=>"$name","surname"=>"$surname","desc"=>"$desc","id"=>$id));
+        return $this->render('AddressBookBundle:User:show.html.twig', [
+            'user' => $user
+        ]);
 
     }
-    /**
-     * @Route("/")
-     */
-    public function showAllAction(){
-        $repository = $this->getDoctrine()->getRepository('AddressBookBundle:User');
-        $allEntities=$repository->findAll();
-
-        return $this->render('AddressBookBundle:User:showall.html.twig',
-            array("MyArray"=>$allEntities));
-
-
-    }
-
 
 }
 

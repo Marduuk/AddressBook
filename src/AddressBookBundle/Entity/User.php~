@@ -43,109 +43,23 @@ class User
      */
     private $description;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Address", inversedBy="user")
      * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
      */
     private $address;
+
     /**
      * @ORM\ManyToOne(targetEntity="Phone", inversedBy="user")
      * @ORM\JoinColumn(name="phone_id", referencedColumnName="id")
      */
     private $phone;
+
     /**
      * @ORM\ManyToOne(targetEntity="Email", inversedBy="user")
      * @ORM\JoinColumn(name="email_id", referencedColumnName="id")
      */
     private $email;
 
-    public function getAddress(){
-        return $this->address;
-    }
-
-
-
-
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return User
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set surname
-     *
-     * @param string $surname
-     * @return User
-     */
-    public function setSurname($surname)
-    {
-        $this->surname = $surname;
-
-        return $this;
-    }
-
-    /**
-     * Get surname
-     *
-     * @return string 
-     */
-    public function getSurname()
-    {
-        return $this->surname;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return User
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
 
 }
